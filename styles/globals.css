@@ -5,7 +5,7 @@
  * GITHUB: https://github.com/themefisher/
  */
 
-@charset "UTF-8";
+/* @charset "UTF-8"; */
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
 /*------------------------------------------------------------------
@@ -108,11 +108,6 @@ blockquote {
   text-align: left;
   color: #777;
 }
-
-/* .navbar > .container {
-  margin-bottom: 0;
-  padding: 10px 0;
-} */
 
 .navbar-toggle .icon-bar {
   background: #000;
@@ -827,14 +822,6 @@ li .dropdown-toggle:after {
   color: #000;
   font-size: 14px;
 }
-/* .cart-summary .total-price {
-  float: right;
-} */
-
-/* .navbar {
-  margin-bottom: 0;
-  padding: 10px 0;
-} */
 
 .navigation {
   margin-bottom: 0;
@@ -866,61 +853,6 @@ li .dropdown-toggle:after {
   border: 1px solid transparent;
   text-decoration: none;
 }
-
-.navbar-nav {
-  /* margin: 0 auto; */
-}
-
-/* .navigation .navbar-nav > li {
-  position: static;
-}
-.navigation .navbar-nav > li.active a {
-  color: #000;
-}
-.navigation .navbar-nav > li > a {
-  color: #333;
-  font-size: 14px;
-  padding: 20px 15px;
-  text-transform: uppercase;
-  transition: 0.2s ease-in-out 0s;
-  border: 1px solid transparent;
-}
-.navigation .navbar-nav > li > a:hover,
-.navigation .navbar-nav > li > a:active,
-.navigation .navbar-nav > li > a:focus {
-  background: none;
-  color: #000;
-}
-.navigation .container {
-  position: relative;
-}
-.navigation .nav .open > a {
-  border: 1px solid transparent;
-  background-color: transparent;
-}
-.navigation .navbar-nav {
-  float: none;
-  display: inline-block;
-}
-.navigation .dropdown-slide .dropdown-menu {
-  right: auto;
-  left: auto;
-  border: none;
-}
-.navigation .dropdown-slide .dropdown-menu li a {
-  color: #222;
-  font-size: 12px;
-  border: 1px solid transparent;
-  display: block;
-  padding: 8px 16px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  transition: 0.3s all;
-}
-.navigation .dropdown-slide .dropdown-menu li a:hover {
-  background-color: #000;
-  color: #fff;
-} */
 
 body .container-fluid {
   padding: 0px;

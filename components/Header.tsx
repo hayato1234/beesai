@@ -1,13 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 const styles = require("../styles/Header.module.scss");
 
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  NavbarText,
+} from "reactstrap";
+
 function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => setIsOpen(!isOpen);
+
   return (
     <div className="container">
-      {/* <!-- Custom Navbar Section --> */}
-
+      {/* <!-- Header Section --> */}
       <section className="top-header">
         <div className="container">
           <div className="row">
@@ -194,33 +212,20 @@ function Header() {
           </div>
         </div>
       </section>
+      {/* <!-- Header Section --> */}
 
-      <nav className="navbar navbar-expand-sm navbar-light">
-        {/* <a className="navbar-brand" href="#">
-            Home
-          </a> */}
-
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-            <li className="dropdown dropdown-slide">
-              <a className="" href="index.html">
-                Home
-              </a>
-            </li>
-            <li className="dropdown dropdown-slide">
-              <a
-                href="#!"
+      {/* <!-- Custom Navbar Section --> */}
+      <Navbar sticky="top" expand="sm">
+        {/* <NavbarBrand href="/">reactstrap</NavbarBrand> */}
+        <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} navbar>
+          <Nav className="mx-auto" navbar>
+            <NavItem>
+              <NavLink href="/">Home</NavLink>
+            </NavItem>
+            <NavItem className="dropdown dropdown-slide">
+              <NavLink
+                href="https://github.com/reactstrap/reactstrap"
                 className="dropdown-toggle"
                 data-toggle="dropdown"
                 data-hover="dropdown"
@@ -230,7 +235,7 @@ function Header() {
                 aria-expanded="false"
               >
                 Shop <span className="tf-ion-ios-arrow-down"></span>
-              </a>
+              </NavLink>
               <div className="dropdown-menu">
                 <div className="row">
                   {/* <!-- Basic --> */}
@@ -273,12 +278,9 @@ function Header() {
                 {/* <!-- / .row --> */}
               </div>
               {/* <!-- / .dropdown-menu --> */}
-            </li>
-
-            {/* <!-- Pages --> */}
-            <li className="dropdown full-width dropdown-slide">
-              <a
-                href="#!"
+            </NavItem>
+            <NavItem className="dropdown full-width dropdown-slide">
+              <NavLink
                 className="dropdown-toggle"
                 data-toggle="dropdown"
                 data-hover="dropdown"
@@ -287,8 +289,8 @@ function Header() {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Pages <span className="tf-ion-ios-arrow-down"></span>
-              </a>
+                Pages
+              </NavLink>
               <div className="dropdown-menu">
                 <div className="row">
                   {/* <!-- Introduction --> */}
@@ -365,13 +367,12 @@ function Header() {
                 {/* <!-- / .row --> */}
               </div>
               {/* <!-- / .dropdown-menu --> */}
-            </li>
+            </NavItem>
             {/* <!-- / Pages --> */}
 
             {/* <!-- Blog --> */}
-            <li className="dropdown dropdown-slide">
-              <a
-                href="#!"
+            <NavItem className="dropdown dropdown-slide">
+              <NavLink
                 className="dropdown-toggle"
                 data-toggle="dropdown"
                 data-hover="dropdown"
@@ -380,8 +381,8 @@ function Header() {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Blog <span className="tf-ion-ios-arrow-down"></span>
-              </a>
+                Blog
+              </NavLink>
               <ul className="dropdown-menu">
                 <li>
                   <a href="blog-left-sidebar.html">Blog Left Sidebar</a>
@@ -399,13 +400,9 @@ function Header() {
                   <a href="blog-single.html">Blog Single</a>
                 </li>
               </ul>
-            </li>
-            {/* <!-- / Blog --> */}
-
-            {/* <!-- Shop --> */}
-            <li className="dropdown dropdown-slide">
-              <a
-                href="#!"
+            </NavItem>
+            <NavItem className="dropdown dropdown-slide">
+              <NavLink
                 className="dropdown-toggle"
                 data-toggle="dropdown"
                 data-hover="dropdown"
@@ -414,8 +411,8 @@ function Header() {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Elements <span className="tf-ion-ios-arrow-down"></span>
-              </a>
+                Elements
+              </NavLink>
               <ul className="dropdown-menu">
                 <li>
                   <a href="typography.html">Typography</a>
@@ -427,43 +424,11 @@ function Header() {
                   <a href="alerts.html">Alerts</a>
                 </li>
               </ul>
-            </li>
-            {/* <!-- / Blog --> */}
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Action
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Another action
-                  </a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Something else here
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </nav>
+            </NavItem>
+          </Nav>
+          {/* <NavbarText>Simple Text</NavbarText> */}
+        </Collapse>
+      </Navbar>
 
       {/* <!-- Custom Navbar Section --> */}
     </div>
