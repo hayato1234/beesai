@@ -492,6 +492,7 @@ li .dropdown-toggle:after {
 .dropdown-slide.full-width .dropdown-menu {
   left: 0 !important;
   right: 0 !important;
+  width: fit-content;
 }
 .dropdown-slide:hover .dropdown-menu {
   display: none;

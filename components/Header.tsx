@@ -198,11 +198,12 @@ function Header() {
 
                 {/* <!-- Languages --> */}
                 <li className="commonSelect">
-                  <select className="form-select form-select-sm">
-                    <option selected>EN</option>
-                    <option>DE</option>
-                    <option>FR</option>
-                    <option>ES</option>
+                  <select
+                    defaultValue="EN"
+                    className="form-select form-select-sm"
+                  >
+                    <option value="EN">EN</option>
+                    <option value="JP">JP</option>
                   </select>
                 </li>
                 {/* <!-- / Languages --> */}
@@ -216,16 +217,15 @@ function Header() {
 
       {/* <!-- Custom Navbar Section --> */}
       <Navbar sticky="top" expand="sm">
-        {/* <NavbarBrand href="/">reactstrap</NavbarBrand> */}
+        <NavbarBrand className="ms-auto pb-2" href="/">
+          Home
+        </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="mx-auto" navbar>
-            <NavItem>
-              <NavLink href="/">Home</NavLink>
-            </NavItem>
+          <Nav className="me-auto" navbar>
             <NavItem className="dropdown dropdown-slide">
               <NavLink
-                href="https://github.com/reactstrap/reactstrap"
+                href="/shop"
                 className="dropdown-toggle"
                 data-toggle="dropdown"
                 data-hover="dropdown"
@@ -237,50 +237,46 @@ function Header() {
                 Shop <span className="tf-ion-ios-arrow-down"></span>
               </NavLink>
               <div className="dropdown-menu">
-                <div className="row">
-                  {/* <!-- Basic --> */}
-                  <div className="col-lg-6 col-md-6 mb-sm-3">
-                    <ul>
-                      <li className="dropdown-header">Pages</li>
-                      <hr />
-                      <li>
-                        <a href="shop.html">Shop</a>
-                      </li>
-                      <li>
-                        <a href="checkout.html">Checkout</a>
-                      </li>
-                      <li>
-                        <a href="cart.html">Cart</a>
-                      </li>
-                      <li>
-                        <a href="pricing.html">Pricing</a>
-                      </li>
-                      <li>
-                        <a href="confirmation.html">Confirmation</a>
-                      </li>
-                    </ul>
-                  </div>
+                <div className="d-flex">
+                  <ul>
+                    <li className="dropdown-header">Pages</li>
+                    <hr />
+                    <li>
+                      <a href="shop.html">Shop</a>
+                    </li>
+                    <li>
+                      <a href="checkout.html">Checkout</a>
+                    </li>
+                    <li>
+                      <a href="cart.html">Cart</a>
+                    </li>
+                    <li>
+                      <a href="pricing.html">Pricing</a>
+                    </li>
+                    <li>
+                      <a href="confirmation.html">Confirmation</a>
+                    </li>
+                  </ul>
 
                   {/* <!-- Layout --> */}
-                  <div className="col-lg-6 col-md-6 mb-sm-3">
-                    <ul>
-                      <li className="dropdown-header">Layout</li>
-                      <hr />
-                      <li>
-                        <a href="product-single.html">Product Details</a>
-                      </li>
-                      <li>
-                        <a href="shop-sidebar.html">Shop With Sidebar</a>
-                      </li>
-                    </ul>
-                  </div>
+
+                  <ul>
+                    <li className="dropdown-header">Layout</li>
+                    <hr />
+                    <li>
+                      <a href="product-single.html">Product Details</a>
+                    </li>
+                    <li>
+                      <a href="shop-sidebar.html">Shop With Sidebar</a>
+                    </li>
+                  </ul>
                 </div>
-                {/* <!-- / .row --> */}
               </div>
               {/* <!-- / .dropdown-menu --> */}
             </NavItem>
             <NavItem className="dropdown full-width dropdown-slide">
               <NavLink
+                href="/pages"
                 className="dropdown-toggle"
                 data-toggle="dropdown"
                 data-hover="dropdown"
@@ -292,78 +288,64 @@ function Header() {
                 Pages
               </NavLink>
               <div className="dropdown-menu">
-                <div className="row">
+                <div className="d-flex">
                   {/* <!-- Introduction --> */}
-                  <div className="col-sm-3 col-xs-12">
-                    <ul>
-                      <li className="dropdown-header">Introduction</li>
-                      <hr />
-                      <li>
-                        <a href="contact.html">Contact Us</a>
-                      </li>
-                      <li>
-                        <a href="about.html">About Us</a>
-                      </li>
-                      <li>
-                        <a href="404.html">404 Page</a>
-                      </li>
-                      <li>
-                        <a href="coming-soon.html">Coming Soon</a>
-                      </li>
-                      <li>
-                        <a href="faq.html">FAQ</a>
-                      </li>
-                    </ul>
-                  </div>
+                  <ul>
+                    <li className="dropdown-header">Introduction</li>
+                    <hr />
+                    <li>
+                      <a href="contact.html">Contact Us</a>
+                    </li>
+                    <li>
+                      <a href="about.html">About Us</a>
+                    </li>
+                    <li>
+                      <a href="404.html">404 Page</a>
+                    </li>
+                    <li>
+                      <a href="coming-soon.html">Coming Soon</a>
+                    </li>
+                    <li>
+                      <a href="faq.html">FAQ</a>
+                    </li>
+                  </ul>
 
                   {/* <!-- Contact --> */}
-                  <div className="col-sm-3 col-xs-12">
-                    <ul>
-                      <li className="dropdown-header">Dashboard</li>
-                      <hr />
-                      <li>
-                        <a href="dashboard.html">User Interface</a>
-                      </li>
-                      <li>
-                        <a href="order.html">Orders</a>
-                      </li>
-                      <li>
-                        <a href="address.html">Address</a>
-                      </li>
-                      <li>
-                        <a href="profile-details.html">Profile Details</a>
-                      </li>
-                    </ul>
-                  </div>
+
+                  <ul>
+                    <li className="dropdown-header">Dashboard</li>
+                    <hr />
+                    <li>
+                      <a href="dashboard.html">User Interface</a>
+                    </li>
+                    <li>
+                      <a href="order.html">Orders</a>
+                    </li>
+                    <li>
+                      <a href="address.html">Address</a>
+                    </li>
+                    <li>
+                      <a href="profile-details.html">Profile Details</a>
+                    </li>
+                  </ul>
 
                   {/* <!-- Utility --> */}
-                  <div className="col-sm-3 col-xs-12">
-                    <ul>
-                      <li className="dropdown-header">Utility</li>
-                      <hr />
-                      <li>
-                        <a href="login.html">Login Page</a>
-                      </li>
-                      <li>
-                        <a href="signin.html">Signin Page</a>
-                      </li>
-                      <li>
-                        <a href="forget-password.html">Forget Password</a>
-                      </li>
-                    </ul>
-                  </div>
 
-                  {/* <!-- Mega Menu --> */}
-                  {/* <div className="col-sm-3 col-xs-12">
-                      <a href="shop.html">
-                        <img
-                          className="img-responsive"
-                          src="images/shop/header-img.jpg"
-                          alt="menu image"
-                        />
-                      </a>
-                    </div> */}
+                  <ul>
+                    <li className="dropdown-header">Utility</li>
+                    <hr />
+                    <li>
+                      <a href="login.html">Login Page</a>
+                    </li>
+                    <li>
+                      <a href="signin.html">Signin Page</a>
+                    </li>
+                    <li>
+                      <a href="forget-password.html">Forget Password</a>
+                    </li>
+                  </ul>
                 </div>
+
                 {/* <!-- / .row --> */}
               </div>
               {/* <!-- / .dropdown-menu --> */}
