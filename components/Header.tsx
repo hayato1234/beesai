@@ -11,11 +11,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText,
 } from "reactstrap";
 
 function Header() {
@@ -79,8 +74,8 @@ function Header() {
               <ul className="top-menu text-right list-group list-group-horizontal">
                 {/* <!-- Cart --> */}
                 <li className="dropdown cart-nav dropdown-slide">
-                  <a
-                    href="#!"
+                  <Link
+                    href="/cart"
                     role="button"
                     type="button"
                     className="btn dropdown-toggle"
@@ -89,16 +84,28 @@ function Header() {
                   >
                     <Icon icon="ion:cart" />
                     Cart
-                  </a>
+                  </Link>
+                  {/* <a
+                    href="#!"
+                    role="button"
+                    type="button"
+                    className="btn dropdown-toggle"
+                    data-toggle="dropdown"
+                    data-hover="dropdown"
+                  >
+                    <Icon icon="material-symbols:shopping-cart" />
+                    Cart
+                  </a> */}
                   <div className="dropdown-menu cart-dropdown">
                     {/* <!-- Cart Item 1--> */}
                     <div className="d-flex cart-content">
-                      <a className="flex-shrink-0" href="#!">
+                      <Link href="/cart">
                         <img
                           src="/assets/images/shop/cart/cart-1.jpg"
                           alt="image"
                         />
-                      </a>
+                      </Link>
+
                       <div className="ms-3">
                         <h4>
                           <a href="#!" className="cart-title">
@@ -160,12 +167,12 @@ function Header() {
                         </a>
                       </div>
                       <div className="col col-6">
-                        <a
-                          href="checkout.html"
+                        <Link
+                          href="/checkout"
                           className="btn btn-sm btn-outline-dark btn-solid-border"
                         >
                           Checkout
-                        </a>
+                        </Link>
                       </div>
                     </ul>
                   </div>
