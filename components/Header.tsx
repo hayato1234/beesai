@@ -414,6 +414,9 @@ function Header() {
                 </li>
               </ul>
             </NavItem>
+            <NavItem>
+              <NavLink href="/about">About</NavLink>
+            </NavItem>
           </Nav>
           {/* <NavbarText>Simple Text</NavbarText> */}
         </Collapse>

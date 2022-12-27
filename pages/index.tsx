@@ -2,7 +2,6 @@ import Head from "next/head";
 import clientPromise from "../lib/mongodb";
 import { InferGetServerSidePropsType } from "next";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Header from "../components/Header";
 import FeaturedSlides from "../components/homepage/FeaturedSlides";
 import ProductCategory from "../components/homepage/ProductCategory";
 import TrendItems from "../components/homepage/TrendItems";
