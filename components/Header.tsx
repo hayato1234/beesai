@@ -11,15 +11,32 @@ import {
   Nav,
   NavItem,
   NavLink,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+  Modal,
+  ModalFooter,
+  ModalBody,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+  ModalHeader,
 } from "reactstrap";
 
 function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
 
-  const toggle = () => setIsOpen(!isOpen);
+  const toggleCart = () => setCartOpen((prevState) => !prevState);
+  const toggleNav = () => setIsNavOpen(!isNavOpen);
+  const toggleLoginModal = () => setLoginModalOpen((prevState) => !prevState);
 
   return (
-    <div className="container">
+    <>
       {/* <!-- Header Section --> */}
       <section className="top-header">
         <div className="container">
@@ -72,136 +89,9 @@ function Header() {
 
             <div className="col col-xs-12 col-sm-4">
               <ul className="top-menu text-right list-group list-group-horizontal">
-                {/* <!-- Cart --> */}
-                <li className="dropdown cart-nav dropdown-slide">
-                  <Link
-                    href="/cart"
-                    role="button"
-                    type="button"
-                    className="btn dropdown-toggle"
-                    data-toggle="dropdown"
-                    data-hover="dropdown"
-                  >
-                    <Icon icon="ion:cart" />
-                    Cart
-                  </Link>
-                  {/* <a
-                    href="#!"
-                    role="button"
-                    type="button"
-                    className="btn dropdown-toggle"
-                    data-toggle="dropdown"
-                    data-hover="dropdown"
-                  >
-                    <Icon icon="material-symbols:shopping-cart" />
-                    Cart
-                  </a> */}
-                  <div className="dropdown-menu cart-dropdown">
-                    {/* <!-- Cart Item 1--> */}
-                    <div className="d-flex cart-content">
-                      <Link href="/cart">
-                        <img
-                          src="/assets/images/shop/cart/cart-1.jpg"
-                          alt="image"
-                        />
-                      </Link>
-
-                      <div className="ms-3">
-                        <h4>
-                          <a href="#!" className="cart-title">
-                            Ladies Bag
-                          </a>
-                        </h4>
-                        <div className="cart-price">
-                          <span>1 x</span>
-                          <span>1250.00</span>
-                        </div>
-                        <h5>
-                          <strong>$1250.00</strong>
-                        </h5>
-                      </div>
-                      <a href="#!" className="remove">
-                        <Icon icon="carbon:close" />
-                      </a>
-                    </div>
-
-                    {/* <!-- Cart Item 2--> */}
-                    <div className="d-flex cart-content">
-                      <a className="flex-shrink-0" href="#!">
-                        <img
-                          src="/assets/images/shop/cart/cart-2.jpg"
-                          alt="image"
-                        />
-                      </a>
-                      <div className="ms-3">
-                        <h4>
-                          <a href="#!" className="cart-title">
-                            Ladies Bag
-                          </a>
-                        </h4>
-                        <div className="cart-price">
-                          <span>1 x</span>
-                          <span>1250.00</span>
-                        </div>
-                        <h5>
-                          <strong>$1250.00</strong>
-                        </h5>
-                      </div>
-                      <a href="#!" className="remove">
-                        <Icon icon="carbon:close" />
-                      </a>
-                    </div>
-                    {/* <!-- / Cart Item --> */}
-
-                    <div className="cart-summary d-flex">
-                      <span className="ms-auto my-2">Total $1799.00</span>
-                    </div>
-
-                    <ul className="row text-center cart-button">
-                      <div className="col col-6">
-                        <a
-                          href="cart.html"
-                          className="btn btn-sm btn-dark view-button"
-                        >
-                          View Cart
-                        </a>
-                      </div>
-                      <div className="col col-6">
-                        <Link
-                          href="/checkout"
-                          className="btn btn-sm btn-outline-dark btn-solid-border"
-                        >
-                          Checkout
-                        </Link>
-                      </div>
-                    </ul>
-                  </div>
-                </li>
-                {/* <!-- / Cart --> */}
-
-                {/* <!-- Search --> */}
-                <li className="dropdown search dropdown-slide">
-                  <a
-                    href="#!"
-                    className="btn dropdown-toggle"
-                    data-toggle="dropdown"
-                    data-hover="dropdown"
-                  >
-                    <Icon icon="ic:outline-search" /> Search
-                  </a>
-                  <ul className="dropdown-menu search-dropdown">
-                    <li>
-                      <form action="post">
-                        <input
-                          type="search"
-                          className="form-control"
-                          placeholder="Search..."
-                        />
-                      </form>
-                    </li>
-                  </ul>
-                </li>
-                {/* <!-- / Search --> */}
+                <Button color="primary" onClick={toggleLoginModal}>
+                  Login
+                </Button>
 
                 {/* <!-- Languages --> */}
                 <li className="commonSelect">
@@ -224,12 +114,16 @@ function Header() {
 
       {/* <!-- Custom Navbar Section --> */}
       <Navbar sticky="top" expand="sm">
-        <NavbarBrand className="ms-auto pb-2" href="/">
+        {/* <NavbarBrand className="ms-auto pb-2" href="/">
           Home
-        </NavbarBrand>
-        <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className="me-auto" navbar>
+        </NavbarBrand> */}
+        <NavbarToggler onClick={toggleNav} />
+        <Collapse
+          className="justify-content-center align-items-center"
+          isOpen={isNavOpen}
+          navbar
+        >
+          <Nav navbar>
             <NavItem className="dropdown dropdown-slide">
               <NavLink
                 href="/shop"
@@ -281,6 +175,7 @@ function Header() {
               </div>
               {/* <!-- / .dropdown-menu --> */}
             </NavItem>
+
             <NavItem className="dropdown full-width dropdown-slide">
               <NavLink
                 href="/pages"
@@ -417,13 +312,181 @@ function Header() {
             <NavItem>
               <NavLink href="/about">About</NavLink>
             </NavItem>
+            {/* <!-- Cart --> */}
+            <NavItem>
+              <Dropdown
+                className="my-auto"
+                isOpen={cartOpen}
+                toggle={toggleCart}
+                onMouseEnter={() => setCartOpen(true)}
+                onMouseLeave={() => setCartOpen(false)}
+              >
+                <DropdownToggle>
+                  <Icon icon="ion:cart" />
+                  Cart
+                </DropdownToggle>
+                <DropdownMenu>
+                  {/* <!-- Cart Item 1--> */}
+                  <div className="d-flex cart-content">
+                    <Link href="/cart">
+                      <img
+                        src="/assets/images/shop/cart/cart-1.jpg"
+                        alt="image"
+                      />
+                    </Link>
+                    <div className="item-info me-auto">
+                      <h6>
+                        <a href="#!" className="cart-title">
+                          Ladies Glasses
+                        </a>
+                      </h6>
+
+                      <p>1 x 1250.00</p>
+                      <p>
+                        <strong>$1250.00</strong>
+                      </p>
+                    </div>
+                    <a href="#!" className="remove">
+                      <Icon icon="carbon:close" />
+                    </a>
+                  </div>
+                  {/* <!-- Cart Item 1--> */}
+
+                  {/* <!-- Cart Item 2--> */}
+                  <div className="d-flex cart-content mt-2">
+                    <Link href="/cart">
+                      <img
+                        src="/assets/images/shop/cart/cart-2.jpg"
+                        alt="image"
+                      />
+                    </Link>
+                    <div className="item-info me-auto">
+                      <h6>
+                        <a href="#!" className="cart-title">
+                          Ladies Bag
+                        </a>
+                      </h6>
+
+                      <p>1 x 1250.00</p>
+                      <p>
+                        <strong>$1250.00</strong>
+                      </p>
+                    </div>
+                    <a href="#!" className="remove">
+                      <Icon icon="carbon:close" />
+                    </a>
+                  </div>
+                  {/* <!-- Cart Item 2--> */}
+
+                  <div className="cart-summary d-flex">
+                    <span className="ms-auto my-2">Total $1799.00</span>
+                  </div>
+
+                  <ul className="row text-center cart-buttons">
+                    <div className="col col-6">
+                      <a
+                        href="cart.html"
+                        className="btn btn-sm btn-dark view-button"
+                      >
+                        View Cart
+                      </a>
+                    </div>
+                    <div className="col col-6">
+                      <Link
+                        href="/checkout"
+                        className="btn btn-sm checkout-button"
+                      >
+                        Checkout
+                      </Link>
+                    </div>
+                  </ul>
+                </DropdownMenu>
+              </Dropdown>
+            </NavItem>
+            {/* <!-- / Cart --> */}
           </Nav>
+
           {/* <NavbarText>Simple Text</NavbarText> */}
         </Collapse>
       </Navbar>
-
       {/* <!-- Custom Navbar Section --> */}
-    </div>
+
+      {/* <!-- login modal  --> */}
+      <Modal isOpen={loginModalOpen} toggle={toggleLoginModal}>
+        <ModalHeader toggle={toggleLoginModal}>Login</ModalHeader>
+        <ModalBody>
+          <Form>
+            <FormGroup>
+              <Label className="sr-only col-form-label" htmlFor="loginEmail">
+                Email Address
+              </Label>
+              <Input
+                type="email"
+                name="loginEmail"
+                id="loginEmail"
+                className="form-control form-control-sm"
+                placeholder="Enter Email"
+                required
+              />
+            </FormGroup>
+            <FormGroup className="form-row">
+              <div className="form-group col-12">
+                <label
+                  className="sr-only col-form-label"
+                  htmlFor="loginPassward"
+                >
+                  Password
+                </label>
+                <Input
+                  type="password"
+                  name="password"
+                  id="loginPassword"
+                  className="form-control form-control-sm"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+            </FormGroup>
+            <FormGroup className="form-check">
+              <label className="form-check-label">
+                <Input
+                  type="checkbox"
+                  className="form-check-input"
+                  name=""
+                  id=""
+                  value="checkedValue"
+                />
+                Remember me
+              </label>
+            </FormGroup>
+            <FormGroup className="form-row">
+              <Button
+                type="button"
+                className="btn btn-secondary btn-sm ml-auto"
+                onClick={toggleLoginModal}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                id="loginBtn"
+                className="btn btn-primary btn-sm ml-1"
+                color="primary"
+                disabled
+              >
+                Sign in
+              </Button>
+            </FormGroup>
+          </Form>
+        </ModalBody>
+        <ModalFooter className="modal-footer">
+          <a className="btn btn-link btn-sm" href="#/" data-dismiss="modal">
+            forgot your password?
+          </a>
+        </ModalFooter>
+      </Modal>
+      {/* <!-- login modal  --> */}
+    </>
   );
 }
 

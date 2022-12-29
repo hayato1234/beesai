@@ -17,9 +17,19 @@ export default async function handler(
         res.status(400).json({ success: false, error: e });
       }
       break;
+    case "POST":
+      try {
+        await Item.create(req.body);
+        console.log("post success");
+        res.status(200).json(req.body);
+      } catch (e) {
+        res.status(400).json({ success: false, error: e });
+      }
+      break;
     default:
-      res
-        .status(400)
-        .json({ success: false, error: new Error(`${method} is not allowed`) });
+      res.status(400).json({
+        success: false,
+        error: `${method} is not allowed`,
+      });
   }
 }
