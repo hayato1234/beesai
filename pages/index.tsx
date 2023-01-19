@@ -5,8 +5,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import FeaturedSlides from "../components/homepage/FeaturedSlides";
 import ProductCategory from "../components/homepage/ProductCategory";
 import TrendItems from "../components/homepage/TrendItems";
+import { getCookie } from "cookies-next";
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ req, res }: any) {
   try {
     await clientPromise;
     // `await clientPromise` will use the default database passed in the MONGODB_URI
@@ -17,6 +18,10 @@ export async function getServerSideProps() {
     //
     // Then you can execute queries against your database like so:
     // db.find({}) or any of the MongoDB Node Driver commands
+
+    //for google api
+    const cookiesExist = getCookie("token", { req, res });
+    if (cookiesExist) return { redirect: { destination: "/dashboard" } };
 
     return {
       props: { isConnected: true },
@@ -39,14 +44,16 @@ export default function Home({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* {isConnected ? (
+      <a href="/api/google">Login with Google</a>
+
+      {isConnected ? (
         <h2 className="subtitle">You are connected to MongoDB</h2>
       ) : (
         <h2 className="subtitle">
           You are NOT connected to MongoDB. Check the <code>README.md</code> for
           instructions.
         </h2>
-      )} */}
+      )}
 
       <FeaturedSlides />
 
