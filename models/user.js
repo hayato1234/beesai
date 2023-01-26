@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const passportLocalMongoose = require("passport-local-mongoose");
+const itemSchema = require("./item");
 const Schema = mongoose.Schema;
 
 const schemaOptions = {
@@ -37,8 +38,8 @@ const userSchema = new Schema(
     accessToken: {
       type: String,
     },
-  }
-  // schemaOptions
+  },
+  schemaOptions
 );
 
 userSchema.plugin(passportLocalMongoose);

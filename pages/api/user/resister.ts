@@ -12,20 +12,6 @@ export default async function handler(
   const { method } = req;
   await dbConnect();
   switch (method) {
-    // case "GET":
-    //   try {
-    //     const users = await User.findOne({ username: "admin@domain.com" });
-    //     console.log(users);
-    //     res.statusCode = 200;
-    //     res.setHeader("Content-Type", "application/json");
-    //     res.json({
-    //       success: true,
-    //       status: "got users",
-    //     });
-    //   } catch (e) {
-    //     res.status(400).json({ success: false, error: e });
-    //   }
-    //   break;
     case "POST":
       try {
         User.register(
