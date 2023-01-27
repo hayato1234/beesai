@@ -12,3 +12,19 @@ export type ItemType = {
   weightOz: number;
   weightG: number;
 };
+
+export type CartType = {
+  _id: string;
+  user_id: string;
+  items: CartItemType[];
+};
+
+export type CartItemType = {
+  // _id: string;
+  item_id: string;
+  quantity: string;
+  price_each: string;
+  thumbnail: string;
+  // createdAt: string;
+  // updatedAt: string;
+};

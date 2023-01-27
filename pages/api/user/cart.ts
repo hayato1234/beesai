@@ -1,10 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
-// import { verifyUser } from "../../../lib/auth-jwt";
 import dbConnect from "../../../lib/dbConnect";
 import auth from "../../../middleware/auth";
 import passport from "../../../lib/passport";
 import { verifyUser } from "../../../lib/auth-jwt";
+import { UserType } from "../../../types/user";
+import { CartItemType, CartType } from "../../../types/items";
 
 //import doesn't work due to typing issue
 const User = require("../../../models/user");
@@ -32,15 +33,36 @@ handler
   .post(verifyUser, async (req: any, res: NextApiResponse) => {
     const userId = req.user._id;
     const cart = await Cart.findOne({ user: userId });
+    const data = req.body;
     if (cart) {
-      //there's items in the cart, so update
-      //   console.log(cartItems);
-      res.status(400).json({ success: false, cart });
+      //items found in the cart, so update cart
+      const itemIndex = cart.items.findIndex(
+        (item: CartItemType) => item.item_id.toString() === data.item_id
+      );
+      if (itemIndex > -1) {
+        //item found in the  cart, so update
+        if (data.quantity <= 0) {
+          //quantity is less than 0, so delete the item
+        } else {
+          //update the quantity
+          cart.items[itemIndex].quantity = cart.items[itemIndex].quantity + 1;
+        }
+      } else {
+        //item not found, so add the item if quantity is >0
+        if (data.quantity > 0) {
+          cart.items.push({
+            item_id: data.item_id,
+            quantity: data.quantity,
+            thumbnail: data.thumbnail,
+            price_each: data.price_each,
+          });
+        }
+      }
+      let result = await cart.save();
+      res.status(200).json({ success: true, result });
     } else {
       //no items in the cart, so make cart
-      //   console.log(req.user._id);
       try {
-        const data = req.body;
         const newCartItems = await Cart.create({
           user_id: userId,
           items: [
@@ -63,25 +85,3 @@ handler
   });
 
 export default handler;
-
-// export default async function handler(
-//   req: NextApiRequest,
-//   res: NextApiResponse
-// ) {
-//   const { method } = req;
-//   await dbConnect();
-//   switch (method) {
-//     case "GET":
-//       try {
-//         verifyUser()
-//       } catch (e) {
-//         res.status(400).json({ success: false, error: e });
-//       }
-//       break;
-//     default:
-//       res.status(400).json({
-//         success: false,
-//         error: `${method} is not allowed`,
-//       });
-//   }
-// }
