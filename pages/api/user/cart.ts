@@ -23,19 +23,19 @@ handler
       res.setHeader("Content-Type", "application/json");
       res.json({
         success: true,
-        cart: cart,
-        status: "get cart items",
+        data: cart,
       });
     } catch (e) {
       res.status(400).json({ success: false, error: e });
     }
   })
   .post(verifyUser, async (req: any, res: NextApiResponse) => {
+    const data = req.body;
     const userId = req.user._id;
     const cart = await Cart.findOne({ user: userId });
-    const data = req.body;
+
     if (cart) {
-      //items found in the cart, so update cart
+      //items found in the cart, so check if the item already exist and update cart
       const itemIndex = cart.items.findIndex(
         (item: CartItemType) => item.item_id.toString() === data.item_id
       );
@@ -43,6 +43,7 @@ handler
         //item found in the  cart, so update
         if (data.quantity <= 0) {
           //quantity is less than 0, so delete the item
+          cart.items.splice(itemIndex, 1);
         } else {
           //update the quantity
           cart.items[itemIndex].quantity = cart.items[itemIndex].quantity + 1;
@@ -74,13 +75,31 @@ handler
             },
           ],
         });
-        console.log("Cart created", newCartItems);
+        // console.log("Cart created", newCartItems);
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json");
         res.json(newCartItems);
       } catch (e) {
         res.status(400).json({ success: false, error: e });
       }
+    }
+  })
+  .delete(verifyUser, async (req: any, res: NextApiResponse) => {
+    try {
+      const userId = req.user._id;
+      const cart = await Cart.findOne({ user: userId });
+      if (cart) {
+        cart.items = [];
+        const data = await cart.save();
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json");
+        res.json({
+          success: true,
+          data: data,
+        });
+      }
+    } catch (e) {
+      res.status(400).json({ success: false, error: e });
     }
   });
 
