@@ -1,6 +1,7 @@
 import React from "react";
+import { Col, Container, Row } from "reactstrap";
 import { Loading } from "../components/Loading";
-import { useGetCartQuery } from "../redux/product";
+import { useGetCartQuery } from "../redux/user";
 import { CartItemType } from "../types/items";
 
 const CartItemList = ({ items }: { items: CartItemType[] }) => {
@@ -8,12 +9,24 @@ const CartItemList = ({ items }: { items: CartItemType[] }) => {
     <>
       {items.map((item: any) => {
         return (
-          <div key={item._id}>
-            <h1>{item.item_id}</h1>
-            <img src={item.thumbnail} alt="thumbnail" />
-            <h3>price {item.price_each}</h3>
-            <h4>x {item.quantity}</h4>
-          </div>
+          <Row key={item._id}>
+            <Col>
+              <p>{item.item_id}</p>
+            </Col>
+            <Col>
+              <img
+                style={{ width: "100px", height: "auto" }}
+                src={item.thumbnail}
+                alt="thumbnail"
+              />
+            </Col>
+            <Col>
+              <h3>price {item.price_each}</h3>
+            </Col>
+            <Col>
+              <h4>x {item.quantity}</h4>
+            </Col>
+          </Row>
         );
       })}
     </>
@@ -27,26 +40,10 @@ function Cart() {
   let items: CartItemType[] = data?.data?.items;
 
   return (
-    <>{isLoading ? <Loading /> : items && <CartItemList items={items} />}</>
+    <Container>
+      {isLoading ? <Loading /> : items && <CartItemList items={items} />}
+    </Container>
   );
-}
-
-export async function getCart() {
-  if (typeof window !== "undefined") {
-    try {
-      const bearer = "Bearer " + localStorage.getItem("token");
-      const res = await fetch("/api/user/cart", {
-        method: "GET",
-        headers: { "Content-Type": "application/json", Authorization: bearer },
-        credentials: "same-origin",
-      });
-      const data = await res.json();
-      return data;
-    } catch (e) {
-      console.error(e);
-      return null;
-    }
-  }
 }
 
 export default Cart;
