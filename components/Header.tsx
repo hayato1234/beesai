@@ -35,6 +35,33 @@ function Header() {
   const toggleNav = () => setIsNavOpen(!isNavOpen);
   const toggleLoginModal = () => setLoginModalOpen((prevState) => !prevState);
 
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    // console.log("Hello");
+    event.preventDefault();
+    const form = event.currentTarget;
+    const body = {
+      username: form.loginEmail.value,
+      password: form.loginPassword.value,
+    };
+    const res = await fetch("/api/user/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    // console.log(res.status);
+    // console.log(res.json());
+
+    if (res.status === 200) {
+      const jsonData = await res.json();
+      if (jsonData.success) {
+        localStorage.setItem("token", jsonData.token);
+        // console.log(localStorage.getItem("token"));
+      }
+    }
+
+    toggleLoginModal();
+  };
+
   return (
     <>
       {/* <!-- Header Section --> */}
@@ -385,7 +412,7 @@ function Header() {
                   <ul className="row text-center cart-buttons">
                     <div className="col col-6">
                       <a
-                        href="cart.html"
+                        href="/cart"
                         className="btn btn-sm btn-dark view-button"
                       >
                         View Cart
@@ -415,7 +442,7 @@ function Header() {
       <Modal isOpen={loginModalOpen} toggle={toggleLoginModal}>
         <ModalHeader toggle={toggleLoginModal}>Login</ModalHeader>
         <ModalBody>
-          <Form>
+          <Form onSubmit={handleLogin}>
             <FormGroup>
               <Label className="sr-only col-form-label" htmlFor="loginEmail">
                 Email Address
@@ -472,9 +499,8 @@ function Header() {
                 id="loginBtn"
                 className="btn btn-primary btn-sm ml-1"
                 color="primary"
-                disabled
               >
-                Sign in
+                Login
               </Button>
             </FormGroup>
           </Form>

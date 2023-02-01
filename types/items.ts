@@ -20,11 +20,11 @@ export type CartType = {
 };
 
 export type CartItemType = {
-  // _id: string;
+  _id: string;
   item_id: string;
   quantity: string;
   price_each: string;
   thumbnail: string;
-  // createdAt: string;
-  // updatedAt: string;
+  createdAt: string;
+  updatedAt: string;
 };

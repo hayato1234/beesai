@@ -11,7 +11,7 @@ handler
     passport.authenticate("local", { session: false }),
     (req: any, res: any) => {
       const token = getToken({ _id: req.user._id });
-      console.log("req", token);
+      // console.log("req", token);
       res.statusCode = 200;
       res.setHeader("Content-Type", "application/json");
       res.json({
