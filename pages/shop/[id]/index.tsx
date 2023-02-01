@@ -4,8 +4,27 @@ import { Button, Col, Container, Row } from "reactstrap";
 
 import Item from "../../../models/item";
 import { ItemType } from "../../../types/items";
+import { useAddToCartMutation } from "../../../redux/user";
 
 function ItemDetail({ item }: { item: ItemType }) {
+  const [addToCart, response] = useAddToCartMutation();
+  console.log(response);
+  const [addedMessage, setAddedMessage] = useState("");
+  const handleAddCart = async () => {
+    const newCartItem = {
+      item_id: item._id,
+      quantity: 1,
+      price_each: item.price,
+      thumbnail: item.image,
+    };
+    try {
+      await addToCart(newCartItem).unwrap();
+
+      setAddedMessage(`${item.title} is added to cart`);
+    } catch (e) {
+      console.log("Failed to add cart", e);
+    }
+  };
   return (
     <Container>
       <Row>
@@ -18,7 +37,8 @@ function ItemDetail({ item }: { item: ItemType }) {
           <p>{item.description}</p>
           <h6>Shipping</h6>
           <p>Free shipping</p>
-          <Button>Add to Cart</Button>
+          <Button onClick={handleAddCart}>Add to Cart</Button>
+          {addedMessage && <p>{addedMessage}</p>}
           <hr />
           <h6>Specification</h6>
           <p>{item.dimensionInch}</p>

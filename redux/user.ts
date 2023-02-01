@@ -1,7 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-// const bearer = "Bearer " + JSON.parse(localStorage.getItem("token") || "null");
-
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
@@ -13,14 +11,28 @@ export const userApi = createApi({
     },
     credentials: "include",
   }),
+  tagTypes: ["User"],
   endpoints: (builder) => ({
     getCart: builder.query({
       query: () => `cart`,
+      providesTags: ["User"],
     }),
     getCartItem: builder.query({
       query: (id) => `cart/${id}`,
+      providesTags: ["User"],
+    }),
+    addToCart: builder.mutation({
+      query: (payload) => ({
+        url: "cart",
+        method: "POST",
+        body: payload,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["User"],
     }),
   }),
 });
 
-export const { useGetCartQuery } = userApi;
+export const { useGetCartQuery, useAddToCartMutation } = userApi;
