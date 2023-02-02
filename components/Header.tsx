@@ -25,11 +25,53 @@ import {
   Label,
   ModalHeader,
 } from "reactstrap";
+import { CartItemType } from "../types/items";
+import { useGetCartQuery } from "../redux/user";
+import { Loading } from "./Loading";
+import { formatterUSD } from "../util/item";
+
+const CartItemList = ({ items }: { items: CartItemType[] }) => {
+  return (
+    <>
+      {items.map((item) => {
+        const { quantity, price_each } = item;
+        return (
+          <div className="d-flex cart-content" key={item.item_id}>
+            <Link href="/cart">
+              <img src={item.thumbnail} alt="item thumbnail" />
+            </Link>
+            <div className="item-info me-auto">
+              <h6>
+                <a href="#!" className="cart-title">
+                  {item.item_id}
+                </a>
+              </h6>
+
+              <p>
+                {quantity} x ${formatterUSD.format(+price_each)}
+              </p>
+              <p>
+                <strong>{formatterUSD.format(+quantity * +price_each)}</strong>
+              </p>
+            </div>
+            <a href="#!" className="remove">
+              <Icon icon="carbon:close" />
+            </a>
+          </div>
+        );
+      })}
+    </>
+  );
+};
 
 function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const { data, error, isLoading } = useGetCartQuery({
+    refetchOnMountOrArgChange: true,
+  });
+  let items: CartItemType[] = data?.data?.items;
 
   const toggleCart = () => setCartOpen((prevState) => !prevState);
   const toggleNav = () => setIsNavOpen(!isNavOpen);
@@ -353,60 +395,30 @@ function Header() {
                   Cart
                 </DropdownToggle>
                 <DropdownMenu>
-                  {/* <!-- Cart Item 1--> */}
-                  <div className="d-flex cart-content">
-                    <Link href="/cart">
-                      <img
-                        src="/assets/images/shop/cart/cart-1.jpg"
-                        alt="image"
-                      />
-                    </Link>
-                    <div className="item-info me-auto">
-                      <h6>
-                        <a href="#!" className="cart-title">
-                          Ladies Glasses
-                        </a>
-                      </h6>
-
-                      <p>1 x 1250.00</p>
-                      <p>
-                        <strong>$1250.00</strong>
-                      </p>
-                    </div>
-                    <a href="#!" className="remove">
-                      <Icon icon="carbon:close" />
-                    </a>
-                  </div>
-                  {/* <!-- Cart Item 1--> */}
-
-                  {/* <!-- Cart Item 2--> */}
-                  <div className="d-flex cart-content mt-2">
-                    <Link href="/cart">
-                      <img
-                        src="/assets/images/shop/cart/cart-2.jpg"
-                        alt="image"
-                      />
-                    </Link>
-                    <div className="item-info me-auto">
-                      <h6>
-                        <a href="#!" className="cart-title">
-                          Ladies Bag
-                        </a>
-                      </h6>
-
-                      <p>1 x 1250.00</p>
-                      <p>
-                        <strong>$1250.00</strong>
-                      </p>
-                    </div>
-                    <a href="#!" className="remove">
-                      <Icon icon="carbon:close" />
-                    </a>
-                  </div>
-                  {/* <!-- Cart Item 2--> */}
+                  {isLoading ? (
+                    <Loading />
+                  ) : !items && error ? (
+                    <p>Error loading your cart</p>
+                  ) : items.length === 0 ? (
+                    <p>Empty</p>
+                  ) : (
+                    <CartItemList items={items} />
+                  )}
 
                   <div className="cart-summary d-flex">
-                    <span className="ms-auto my-2">Total $1799.00</span>
+                    <span className="ms-auto my-2">
+                      Total{" "}
+                      {items &&
+                        formatterUSD.format(
+                          +items.reduce(
+                            (a, c) =>
+                              a +
+                              Number.parseInt(c.quantity) *
+                                Number.parseInt(c.price_each),
+                            0
+                          )
+                        )}
+                    </span>
                   </div>
 
                   <ul className="row text-center cart-buttons">

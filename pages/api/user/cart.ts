@@ -3,7 +3,7 @@ import nextConnect from "next-connect";
 import dbConnect from "../../../lib/dbConnect";
 import auth from "../../../middleware/auth";
 import passport from "../../../lib/passport";
-import { verifyUser } from "../../../lib/auth-jwt";
+import { verifyAdmin, verifyUser } from "../../../lib/auth-jwt";
 import { UserType } from "../../../types/user";
 import { CartItemType, CartType } from "../../../types/items";
 

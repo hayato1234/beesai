@@ -8,7 +8,7 @@ import { useAddToCartMutation } from "../../../redux/user";
 
 function ItemDetail({ item }: { item: ItemType }) {
   const [addToCart, response] = useAddToCartMutation();
-  console.log(response);
+  // console.log(response);
   const [addedMessage, setAddedMessage] = useState("");
   const handleAddCart = async () => {
     const newCartItem = {

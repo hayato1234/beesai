@@ -34,7 +34,9 @@ const CartItemList = ({ items }: { items: CartItemType[] }) => {
 };
 
 function Cart() {
-  const { data, error, isLoading } = useGetCartQuery("");
+  const { data, error, isLoading } = useGetCartQuery({
+    refetchOnMountOrArgChange: true,
+  });
   if (error) return <h1>{error}</h1>;
 
   let items: CartItemType[] = data?.data?.items;
